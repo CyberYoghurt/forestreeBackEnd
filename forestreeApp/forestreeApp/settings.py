@@ -132,7 +132,9 @@ DATABASES = {
 }
 
 CSRF_TRUSTED_ORIGINS = ['https://forestree-frontend.onrender.com/',
-                        'https://forestree-backend.onrender.com/']
+                        'https://forestree-backend.onrender.com/',
+                        'https://forestree-backend.onrender.com',
+                        '*.onrender.com']
 CSRF_COOKIE_SECURE = False
 
 # Password validation
