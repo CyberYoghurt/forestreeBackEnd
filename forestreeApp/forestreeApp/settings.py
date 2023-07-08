@@ -131,7 +131,7 @@ DATABASES = {
     }
 }
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8080']
+CSRF_TRUSTED_ORIGINS = ['https://forestree-frontend.onrender.com/']
 CSRF_COOKIE_SECURE = False
 
 # Password validation
