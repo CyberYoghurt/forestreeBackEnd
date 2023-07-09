@@ -132,7 +132,7 @@ DATABASES = {
     }
 }
 
-CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['*']
 CSRF_COOKIE_SECURE = False
 
 # Password validation
