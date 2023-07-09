@@ -7,12 +7,11 @@ from .models import Chat, Message
 from .serializer import MessageSerializer
 
 
-
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
         try:
-            self.room_name= self.scope["url_route"]["kwargs"]["room_name"]
-
+            print('Trying chat')
+            self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
             self.room_group_name = "chat_%s" % self.room_name
 
             # Add this channel to a group
@@ -22,45 +21,45 @@ class ChatConsumer(WebsocketConsumer):
 
             # Getting a chat
             try:
-                 
-                 self.active_chat = Chat.objects.get(name=self.room_name)
+
+                self.active_chat = Chat.objects.get(name=self.room_name)
             except Exception as E:
                 self.active_chat = Chat.objects.create(name=self.room_name)
 
-            #Getting and serialing messages of the active chat
+            # Getting and serialing messages of the active chat
             self.user = self.scope['user']
             messages = self.active_chat.chat_messages
-            serialized_messages = MessageSerializer(messages,many=True)
+            serialized_messages = MessageSerializer(messages, many=True)
             self.accept()
-            
 
             self.send(text_data=json.dumps({
-                    'content':serialized_messages.data
-                    })) 
-        
+                'content': serialized_messages.data
+            }))
+
         except Exception as E:
             print(E)
-    
-
+            E
 
     def disconnect(self, close_code):
         pass
 
     def receive(self, text_data):
-        if(self.scope['user'].is_anonymous):
+        if (self.scope['user'].is_anonymous):
             self.send(text_data=json.dumps({
-                'status' :False,
-                'content':'Sign to send messages'
-                })) 
+                'status': False,
+                'content': 'Sign to send messages'
+            }))
             return
         data = json.loads(text_data)
         message = data['message']
-        new_message = Message(chat = self.active_chat, user = self.user, text = message)
+        new_message = Message(chat=self.active_chat,
+                              user=self.user, text=message)
         new_message.save()
-        message_serialized = MessageSerializer(new_message,many=False)
+        message_serialized = MessageSerializer(new_message, many=False)
         async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name, {"type": "chat_message", "message": message_serialized.data}
-        ) 
+            self.room_group_name, {"type": "chat_message",
+                                   "message": message_serialized.data}
+        )
         return
 
     def chat_message(self, event):
@@ -68,5 +67,3 @@ class ChatConsumer(WebsocketConsumer):
 
         # Send message to WebSocket
         self.send(text_data=json.dumps({"content": message}))
-        
-

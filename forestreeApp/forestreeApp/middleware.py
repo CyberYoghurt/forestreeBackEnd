@@ -33,7 +33,6 @@ class QueryAuthMiddleware:
         try:
             token = parse_qs(scope["query_string"].decode("utf8"))["token"][0]
             UntypedToken(token)
-            print('reached middleware')
         except (KeyError, InvalidToken, TokenError) as e:
             scope['user'] = AnonymousUser()
         else:

@@ -30,7 +30,6 @@ class RegisterView(generics.CreateAPIView):
 
     
     def get(self,request):
-        print('reached change password')
         return Response(status=200)
     
 
@@ -59,9 +58,7 @@ def change_password(request):
 @permission_classes([IsAuthenticated])
 def change_profile(request):
   try:
-    print(request.data)
     if(request.data['username'] == ''):
-      print('no username')
       return Response(status=400)
     
     request.user.email = request.data['email']
@@ -75,7 +72,6 @@ def change_profile(request):
     return Response(status=200)
 
   except Exception as e:
-    print(e)
     return Response(status=400)
      
    
