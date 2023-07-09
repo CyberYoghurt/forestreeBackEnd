@@ -176,7 +176,7 @@ class CheckOut(APIView):
 
 
 class ChatInfo(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     # Get the chats where is a user has joined
     def get(self, request):
