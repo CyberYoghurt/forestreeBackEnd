@@ -7,12 +7,14 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 
+
 @database_sync_to_async
 def get_user(user_id):
     try:
         return User.objects.get(id=user_id)
     except User.DoesNotExist:
         return AnonymousUser()
+
 
 class QueryAuthMiddleware:
     """
@@ -31,12 +33,12 @@ class QueryAuthMiddleware:
         try:
             token = parse_qs(scope["query_string"].decode("utf8"))["token"][0]
             UntypedToken(token)
+            print('reached middleware')
         except (KeyError, InvalidToken, TokenError) as e:
             scope['user'] = AnonymousUser()
         else:
-            decoded_data = jwt_decode(token, settings.SECRET_KEY, algorithms=["HS256"])
+            decoded_data = jwt_decode(
+                token, settings.SECRET_KEY, algorithms=["HS256"])
             scope['user'] = await get_user(decoded_data['user_id'])
-
-
 
         return await self.app(scope, receive, send)
