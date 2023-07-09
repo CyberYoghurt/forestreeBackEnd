@@ -6,7 +6,6 @@ from jwt import decode as jwt_decode
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
-from asgiref.sync import async_to_sync
 
 @database_sync_to_async
 def get_user(user_id):
