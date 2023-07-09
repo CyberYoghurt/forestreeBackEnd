@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-jq1x#u(kvcj$!-9f@ybc4rh_qy+*23n-r%=)#wx4d9=b#8m$+y'
+SECRET_KEY = os.environ['SECRET_DJANGO']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
