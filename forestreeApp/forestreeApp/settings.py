@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_DJANGO']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['.onrender.com']
 
@@ -133,7 +133,7 @@ DATABASES = {
 }
 
 CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com',
-                        'wss:/https://*.onrender.com',  ]
+                        'wss:/https://*.onrender.com',]
 CSRF_COOKIE_SECURE = False
 
 # Password validation
