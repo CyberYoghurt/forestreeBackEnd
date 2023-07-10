@@ -176,11 +176,10 @@ class CheckOut(APIView):
 
 
 class ChatInfo(APIView):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
 
     # Get the chats where is a user has joined
     def get(self, request):
-        print('trying chat info')
         user = request.user
         chats = user.user_chats.all()
         chats_serialized = ChatListSerializer(chats, many=True)
