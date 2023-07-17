@@ -25,7 +25,7 @@ class WoodPage(APIView):
         try:
             received_page = request.GET.get('page', 1)
             woods = Wood.objects.all()
-            wood_paginator = Paginator(woods, 1)
+            wood_paginator = Paginator(woods, 3)
             woods_of_page = wood_paginator.page(received_page)
             woods_serializer = WoodListSerializer(
                 woods_of_page.object_list, many=True)
@@ -59,7 +59,7 @@ class MachineryPage(APIView):
 
     def get(self, request):
         try:
-            received_page = request.GET.get('page', 1)
+            received_page = request.GET.get('page', 3)
             machineries = Machinery.objects.all()
             machinery_paginator = Paginator(machineries, 1)
             machineries_of_page = machinery_paginator.page(received_page)
@@ -123,7 +123,7 @@ class Shop(APIView):
         try:
             page_number = request.GET.get('page', 1)
             all_products = Product.objects.all()
-            paginator = Paginator(all_products, 4)
+            paginator = Paginator(all_products, 6)
             products = paginator.page(page_number)
             product_serialized = ProductListSerializer(
                 products.object_list, many=True)
