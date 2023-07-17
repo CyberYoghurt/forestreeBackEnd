@@ -59,9 +59,9 @@ class MachineryPage(APIView):
 
     def get(self, request):
         try:
-            received_page = request.GET.get('page', 3)
+            received_page = request.GET.get('page', 1)
             machineries = Machinery.objects.all()
-            machinery_paginator = Paginator(machineries, 1)
+            machinery_paginator = Paginator(machineries, 3)
             machineries_of_page = machinery_paginator.page(received_page)
             machinery_serializer = MachineryListSerializer(
                 machineries_of_page.object_list, many=True)
