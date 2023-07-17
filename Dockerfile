@@ -8,6 +8,5 @@ WORKDIR /usr/app
 COPY . .
 RUN chmod 777 ./forestreeApp/manage.py
 RUN poetry install
-RUN poetry run ./forestreeApp/manage.py migrate
 EXPOSE 8000
 CMD ["poetry","run", "./forestreeApp/manage.py", "runserver", "0.0.0.0:8000"]
