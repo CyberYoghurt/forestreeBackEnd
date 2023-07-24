@@ -12,7 +12,7 @@ ENV DJANGO_SUPERUSER_USERNAME = zodix
 ENV DJANGO_SUPERUSER_PASSWORD = copito21
 ENV DJANGO_SUPERUSER_EMAIL = gonz445@hotmail.com
 RUN poetry install 
-RUN poetry run ./forestreeApp/manage.py createsuperuser 
+RUN poetry run ./forestreeApp/manage.py createsuperuser --no-input
 RUN poetry run ./forestreeApp/manage.py makemigrations
 RUN poetry run ./forestreeApp/manage.py migrate
 EXPOSE 8000
