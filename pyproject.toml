@@ -14,6 +14,7 @@ djangorestframework-simplejwt = "^5.2.2"
 django-cors-headers = "^3.13.0"
 pillow = "^9.4.0"
 stripe = "^5.2.0"
+psycopg2 = "^2.9.6"
 
 
 [build-system]
