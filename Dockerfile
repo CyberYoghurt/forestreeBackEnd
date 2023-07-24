@@ -8,8 +8,11 @@ WORKDIR /usr/app
 COPY . .
 RUN chmod 777 ./forestreeApp/manage.py
 ENV SECRET_DJANGO = ASecretForDjango
-RUN poetry install
-RUN poetry run ./forestreeApp/manage.py createsuperuser --noinput --username zodix --email gonz445@hotmail.com --password copito21
+ENV DJANGO_SUPERUSER_USERNAME = zodix
+ENV DJANGO_SUPERUSER_PASSWORD = copito21
+ENV DJANGO_SUPERUSER_EMAIL = gonz445@hotmail.com
+RUN poetry install 
+RUN poetry run ./forestreeApp/manage.py createsuperuser --noinput 
 RUN poetry run ./forestreeApp/manage.py makemigrations
 RUN poetry run ./forestreeApp/manage.py migrate
 EXPOSE 8000
